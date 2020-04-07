@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +24,10 @@ import org.json.JSONObject;
 
 public class ConsoleDetailActivity extends AppCompatActivity {
 
-    private TextView textName, textYear, textPrice;
+    private TextView textName, textYear, textPrice, textQuantidade, textAtivo;
     private long id;
     private Console console;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,8 @@ public class ConsoleDetailActivity extends AppCompatActivity {
         textName = findViewById(R.id.textName);
         textYear = findViewById(R.id.textYear);
         textPrice = findViewById(R.id.textPrice);
+        textQuantidade = findViewById(R.id.textQuantidade);
+        textAtivo = findViewById(R.id.textAtivo);
     }
 
     @Override
@@ -55,10 +59,18 @@ public class ConsoleDetailActivity extends AppCompatActivity {
                     console.setName(response.getString("name"));
                     console.setYear(response.getInt("year"));
                     console.setPrice(response.getDouble("price"));
+                    console.setQuantidade_jogos(response.getInt("quantidade_jogos"));
+                    console.setAtivo(response.getBoolean("ativo"));
 
                     textName.setText(console.getName());
                     textYear.setText(String.valueOf(console.getYear()));
                     textPrice.setText(String.valueOf(console.getPrice()));
+                    textQuantidade.setText(String.valueOf(console.getQuantidade_jogos()));
+                    if(console.isAtivo()){
+                        textAtivo.setText("SIM");
+                    }else{
+                        textAtivo.setText("NÃO");
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

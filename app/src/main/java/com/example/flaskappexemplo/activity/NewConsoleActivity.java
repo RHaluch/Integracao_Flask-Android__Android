@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -21,9 +22,12 @@ import org.json.JSONObject;
 
 public class NewConsoleActivity extends AppCompatActivity {
 
-    private EditText editName, editYear, editPrice;
-    private long id;
+    private EditText editName, editYear, editPrice, editQuantidade;
     private Console console;
+    private RadioGroup radioGroup;
+    private long id;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +36,8 @@ public class NewConsoleActivity extends AppCompatActivity {
         editName = findViewById(R.id.editName);
         editYear = findViewById(R.id.editYear);
         editPrice = findViewById(R.id.editPrice);
+        editQuantidade = findViewById(R.id.editQuantidade);
+        radioGroup = findViewById(R.id.radio_group);
 
         id = getIntent().getLongExtra("ID",0);
 
@@ -51,10 +57,19 @@ public class NewConsoleActivity extends AppCompatActivity {
                     console.setName(response.getString("name"));
                     console.setYear(response.getInt("year"));
                     console.setPrice(response.getDouble("price"));
+                    console.setQuantidade_jogos(response.getInt("quantidade_jogos"));
+                    console.setAtivo(response.getBoolean("ativo"));
 
                     editName.setText(console.getName());
                     editYear.setText(String.valueOf(console.getYear()));
                     editPrice.setText(String.valueOf(console.getPrice()));
+                    editQuantidade.setText(String.valueOf(console.getQuantidade_jogos()));
+                    if(console.isAtivo()){
+                        radioGroup.check(R.id.radioSim);
+                    }else{
+                        radioGroup.check(R.id.radioNao);
+                    }
+                    radioGroup.setClickable(true);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -76,6 +91,13 @@ public class NewConsoleActivity extends AppCompatActivity {
             object.put("name",editName.getText().toString());
             object.put("year",Integer.parseInt(editYear.getText().toString()));
             object.put("price",Double.parseDouble(editPrice.getText().toString()));
+            object.put("quantidade_jogos",Integer.parseInt(editQuantidade.getText().toString()));
+
+            if (radioGroup.getCheckedRadioButtonId() == R.id.radioSim){
+                object.put("ativo",true);
+            }else{
+                object.put("ativo",false);
+            }
 
             JsonObjectRequest request = new JsonObjectRequest(method, url, object, new Response.Listener<JSONObject>() {
                 @Override

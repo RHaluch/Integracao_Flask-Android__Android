@@ -5,6 +5,8 @@ public class Console {
     private String name;
     private int year;
     private double price;
+    private boolean ativo;
+    private int quantidade_jogos;
 
     public Console() {
     }
@@ -39,6 +41,22 @@ public class Console {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
+
+    public int getQuantidade_jogos() {
+        return quantidade_jogos;
+    }
+
+    public void setQuantidade_jogos(int quantidade_jogos) {
+        this.quantidade_jogos = quantidade_jogos;
     }
 
     @Override

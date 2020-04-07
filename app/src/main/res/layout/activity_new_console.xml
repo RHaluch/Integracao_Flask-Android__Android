@@ -24,6 +24,43 @@
         android:hint="Preço"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <EditText
+        android:id="@+id/editQuantidade"
+        android:inputType="number"
+        android:hint="Quantidade de Jogos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <GridLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="70sp"
+            android:layout_height="wrap_content"
+            android:text="Ativo?"
+            android:textSize="20sp"/>
+
+        <RadioGroup
+            android:id="@+id/radio_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checkedButton="@id/radioSim"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/radioSim"
+                android:layout_width="100sp"
+                android:layout_height="wrap_content"
+                android:text="SIM" />
+
+            <RadioButton
+                android:id="@+id/radioNao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="NÃO" />
+        </RadioGroup>
+    </GridLayout>
     <Button
         android:text="Salvar"
         android:onClick="saveConsole"
